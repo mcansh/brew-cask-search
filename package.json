@@ -1,0 +1,43 @@
+{
+  "name": "@mcansh/brew-cask-search",
+  "version": "1.0.0",
+  "description": "search homebrew-cask",
+  "homepage": "https://brewcask.mcan.sh",
+  "repository": "github.com/mcansh/homebrew-cask-search",
+  "license": "MIT",
+  "author": "Logan McAnsh <logan@mcan.sh> (https://mcan.sh/)",
+  "main": "remix.config.js",
+  "scripts": {
+    "build": "cross-env NODE_ENV=production remix build && tsc -b",
+    "dev": "run-p dev:*",
+    "dev:remix": "remix run",
+    "dev:loaders": "tsc -b -w",
+    "dev:server": "nodemon --ignore app server.js",
+    "start": "cross-env NODE_ENV=production node server.js"
+  },
+  "dependencies": {
+    "@remix-run/cli": "0.6.2",
+    "@remix-run/core": "0.6.2",
+    "@remix-run/express": "0.6.2",
+    "@remix-run/loader": "0.6.2",
+    "@remix-run/react": "0.6.2",
+    "express": "4.17.1",
+    "match-sorter": "5.0.0",
+    "react": "17.0.1",
+    "react-dom": "17.0.1"
+  },
+  "devDependencies": {
+    "@types/express": "4.17.8",
+    "@types/match-sorter": "5.0.0",
+    "@types/node": "14.14.6",
+    "@types/react": "16.9.56",
+    "@types/react-dom": "16.9.9",
+    "cross-env": "7.0.2",
+    "nodemon": "2.0.6",
+    "npm-run-all": "4.1.5",
+    "typescript": "4.0.5"
+  },
+  "engines": {
+    "node": ">=12"
+  }
+}
