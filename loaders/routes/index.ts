@@ -1,5 +1,4 @@
 import type { DataLoader } from "@remix-run/core";
-import { json } from "@remix-run/loader";
 
 class HTTPError extends Error {
   public response: Response;
@@ -33,21 +32,19 @@ const checkResponse = (response: Response) => {
 };
 
 let loader: DataLoader = async () => {
-  try {
-    const promise = await fetch("https://formulae.brew.sh/api/cask.json");
+  const data = await fetch("https://formulae.brew.sh/api/cask.json")
+    .then(checkResponse)
+    .then((res) => res.json());
 
-    await checkResponse(promise);
+  const body = JSON.stringify(data);
 
-    const data = await promise.json();
-
-    return json(data, {
-      status: 200,
-      headers: promise.headers,
-    });
-  } catch (error) {
-    const body = { message: "error getting data from homebrew" };
-    return json(body, { status: 500 });
-  }
+  return new Response(body, {
+    status: 200,
+    headers: {
+      "content-type": "application/json",
+      "cache-control": "public, max-age=3600",
+    },
+  });
 };
 
 export = loader;
