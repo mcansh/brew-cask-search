@@ -9,10 +9,10 @@ jobs:
       - name: ⬇️ Checkout repo
         uses: actions/checkout@v2
 
-      - name: ⎔ Setup node
+      - name: 🛠 Setup node
         uses: actions/setup-node@v1
         with:
-          node-version: 14
+          node-version: 15
 
       - name: 🚀 Deploy
         # only deploy main branch on pushes
