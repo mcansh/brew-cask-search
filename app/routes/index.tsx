@@ -20,7 +20,13 @@ const Index: React.VFC = () => {
       <h1 className="text-2xl">Homebrew Cask Search</h1>
       <p>
         Quickly search for a cask in the{" "}
-        <a href="https://github.com/Homebrew/homebrew-cask">homebrew</a> repo.
+        <a
+          className="text-indigo-400 transition-colors duration-75 ease-in-out hover:text-indigo-200 dark:hover:text-indigo-600 hover:underline"
+          href="https://github.com/Homebrew/homebrew-cask"
+        >
+          homebrew
+        </a>{" "}
+        repo.
       </p>
       <form onSubmit={(event) => event.preventDefault()} className="w-full">
         <label>
@@ -50,7 +56,12 @@ const Index: React.VFC = () => {
           <ul>
             {results.map((cask) => (
               <li key={cask.token}>
-                <a href={cask.homepage}>{cask.name.join(", ")}</a>
+                <a
+                  className="text-indigo-400 transition-colors duration-75 ease-in-out hover:text-indigo-200 dark:hover:text-indigo-600 hover:underline"
+                  href={cask.homepage}
+                >
+                  {cask.name.join(", ")}
+                </a>
               </li>
             ))}
           </ul>
