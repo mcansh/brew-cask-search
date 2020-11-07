@@ -32,19 +32,23 @@ const checkResponse = (response: Response) => {
 };
 
 let loader: DataLoader = async () => {
-  const data = await fetch("https://formulae.brew.sh/api/cask.json")
-    .then(checkResponse)
-    .then((res) => res.json());
+  try {
+    const data = await fetch("https://formulae.brew.sh/api/cask.json")
+      .then(checkResponse)
+      .then((res) => res.json());
 
-  const body = JSON.stringify(data);
+    const body = JSON.stringify(data);
 
-  return new Response(body, {
-    status: 200,
-    headers: {
-      "content-type": "application/json",
-      "cache-control": "public, max-age=3600",
-    },
-  });
+    return new Response(body, {
+      status: 200,
+      headers: {
+        "content-type": "application/json",
+        "cache-control": "public, max-age=3600",
+      },
+    });
+  } catch (error) {
+    return new Response(undefined, { status: 500 });
+  }
 };
 
 export = loader;
