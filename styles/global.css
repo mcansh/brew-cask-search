@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply antialiased;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    @apply w-full;
+    @apply font-normal;
+    @apply bg-white;
+    letter-spacing: 0.4px;
+
+    /** This doesn't work for `height` in Firefox */
+    min-height: -moz-available;
+    /*
+    * This does work for `height` in Chrome and Safari,
+    * but Safari has some weird redraw issue
+    * (open and close devtools and you will see).
+    */
+    min-height: -webkit-fill-available;
+    @apply h-full;
+  }
+
+  html,
+  body {
+    @apply h-full;
+  }
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}

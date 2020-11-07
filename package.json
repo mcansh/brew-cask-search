@@ -8,11 +8,15 @@
   "author": "Logan McAnsh <logan@mcan.sh> (https://mcan.sh/)",
   "main": "remix.config.js",
   "scripts": {
-    "build": "cross-env NODE_ENV=production remix build && tsc -b",
+    "build": "cross-env NODE_ENV=production run-p build:*",
+    "build:remix": "remix build",
+    "build:loaders": "tsc -b",
+    "build:css": "postcss styles --base styles --dir app/ --env production",
     "dev": "run-p dev:*",
     "dev:remix": "remix run",
     "dev:loaders": "tsc -b -w",
     "dev:server": "nodemon --ignore app server.js",
+    "dev:css": "postcss styles --base styles --dir app/ -w",
     "start": "cross-env NODE_ENV=production node server.js"
   },
   "dependencies": {
@@ -32,9 +36,12 @@
     "@types/node": "14.14.6",
     "@types/react": "16.9.56",
     "@types/react-dom": "16.9.9",
+    "autoprefixer": "10.0.1",
     "cross-env": "7.0.2",
     "nodemon": "2.0.6",
     "npm-run-all": "4.1.5",
+    "postcss-cli": "8.2.0",
+    "tailwindcss": "2.0.0-alpha.9",
     "typescript": "4.0.5"
   },
   "engines": {

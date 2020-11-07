@@ -45,7 +45,7 @@ let loader: DataLoader = async () => {
       headers: promise.headers,
     });
   } catch (error) {
-    const body = { message: "error getting data from github" };
+    const body = { message: "error getting data from homebrew" };
     return json(body, { status: 500 });
   }
 };
