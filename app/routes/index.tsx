@@ -16,18 +16,21 @@ const Index: React.VFC = () => {
   const [results, setResults] = React.useState<Cask[]>([]);
 
   return (
-    <div>
-      <h2>Homebrew Cask Search</h2>
+    <div className="flex flex-col items-center h-full max-w-screen-sm py-4 mx-auto">
+      <h1 className="text-2xl">Homebrew Cask Search</h1>
       <p>
         Quickly search for a cask in the{" "}
-        <a href="https://github.com/Homebrew/homebrew-cask">cask</a> repo.
+        <a href="https://github.com/Homebrew/homebrew-cask">homebrew</a> repo.
       </p>
-      <form onSubmit={(event) => event.preventDefault()}>
+      <form onSubmit={(event) => event.preventDefault()} className="w-full">
         <label>
+          <span className="block">Search for a Cask</span>
           <input
+            className="w-full px-4 py-1 text-black border border-current rounded dark:border-white"
             type="text"
             name="cask-search"
             id="cask-search"
+            placeholder="Visual Studio Code"
             value={search}
             onChange={(event) => {
               setSearch(event.currentTarget.value);
@@ -40,17 +43,19 @@ const Index: React.VFC = () => {
         </label>
       </form>
 
-      {!search ? null : !results.length ? (
-        <p>No Results</p>
-      ) : (
-        <ul>
-          {results.map((cask) => (
-            <li key={cask.token}>
-              <a href={cask.homepage}>{cask.name.join(", ")}</a>
-            </li>
-          ))}
-        </ul>
-      )}
+      <div className="w-full pt-4">
+        {!search ? null : !results.length ? (
+          <p>No Results</p>
+        ) : (
+          <ul>
+            {results.map((cask) => (
+              <li key={cask.token}>
+                <a href={cask.homepage}>{cask.name.join(", ")}</a>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </div>
   );
 };
