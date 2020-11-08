@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useRouteData } from '@remix-run/react';
 import { matchSorter } from 'match-sorter';
-import { useDebouncedCallback } from 'use-debounce';
 
 import type { Cask } from '../../@types/cask-response';
 
@@ -12,21 +11,40 @@ function meta() {
   };
 }
 
+// Our hook
+function useDebounce(value: any, delay: number) {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [delay, value]);
+
+  return debouncedValue;
+}
+
 const Index: React.VFC = () => {
   const casks = useRouteData<Cask[]>();
   const [search, setSearch] = useState<string>('');
   const [results, setResults] = useState<Cask[]>([]);
-
-  const filter = useDebouncedCallback(() => {
-    const matches = matchSorter(casks, search, {
-      keys: ['token', 'name'],
-    });
-    setResults(matches);
-  }, 100);
+  const debouncedSearchTerm = useDebounce(search, 300);
 
   useEffect(() => {
-    filter.callback();
-  }, [filter, search]);
+    if (debouncedSearchTerm) {
+      const matches = matchSorter(casks, debouncedSearchTerm, {
+        keys: ['token', 'name'],
+      });
+
+      setResults(matches);
+    } else {
+      setResults([]);
+    }
+  }, [casks, debouncedSearchTerm]);
 
   return (
     <div className="flex flex-col items-center min-h-full py-4">
@@ -53,15 +71,14 @@ const Index: React.VFC = () => {
             name="cask-search"
             id="cask-search"
             placeholder="Visual Studio Code"
-            onChange={event => setSearch(event.currentTarget.value)}
+            onChange={event => setSearch(event.target.value)}
+            value={search}
           />
         </label>
       </form>
 
       <div className="w-full max-w-screen-lg pt-4 mx-auto">
-        {!search ? null : !results.length ? (
-          <p>No Results</p>
-        ) : (
+        {results.length > 0 && (
           <ul className="grid grid-cols-4 gap-4 auto-rows-fr">
             {results.map(cask => {
               const websiteUrl = new URL(cask.homepage).hostname;
