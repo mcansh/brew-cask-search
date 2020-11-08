@@ -72,12 +72,20 @@ const Index: React.VFC = () => {
 
               return (
                 <li key={cask.token}>
-                  <div className="flex flex-col h-full p-2 space-y-2 bg-gray-200 rounded dark:bg-gray-900">
-                    <div className="flex-auto space-y-2">
+                  <div className="flex flex-col h-full p-2 duration-75 ease-in-out bg-gray-200 rounded dark:bg-gray-900 transform-gpu hover:scale-105">
+                    <a
+                      href={cask.homepage}
+                      className="flex flex-col flex-auto space-y-2"
+                    >
                       <h2>{cask.name[0]}</h2>
                       {cask.desc && <p>{cask.desc}</p>}
-                    </div>
-                    <a href={cask.homepage}>{website}</a>
+                      <span className="mt-auto truncate">{website}</span>
+                    </a>
+                    <a
+                      href={`https://formulae.brew.sh/cask/${cask.token}#default`}
+                    >
+                      View on brew.sh
+                    </a>
                   </div>
                 </li>
               );
