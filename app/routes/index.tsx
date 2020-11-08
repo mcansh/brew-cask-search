@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouteData } from '@remix-run/react';
 import { matchSorter } from 'match-sorter';
+import { useDebouncedCallback } from 'use-debounce';
 
 import type { Cask } from '../../@types/cask-response';
 
@@ -13,11 +14,22 @@ function meta() {
 
 const Index: React.VFC = () => {
   const casks = useRouteData<Cask[]>();
-  const [search, setSearch] = React.useState<string>('');
-  const [results, setResults] = React.useState<Cask[]>([]);
+  const [search, setSearch] = useState<string>('');
+  const [results, setResults] = useState<Cask[]>([]);
+
+  const filter = useDebouncedCallback(() => {
+    const matches = matchSorter(casks, search, {
+      keys: ['token', 'name'],
+    });
+    setResults(matches);
+  }, 100);
+
+  useEffect(() => {
+    filter.callback();
+  }, [filter, search]);
 
   return (
-    <div className="flex flex-col items-center h-full py-4">
+    <div className="flex flex-col items-center min-h-full py-4">
       <h1 className="text-2xl">Homebrew Cask Search</h1>
       <p>
         Quickly search for a cask in the{' '}
@@ -41,14 +53,7 @@ const Index: React.VFC = () => {
             name="cask-search"
             id="cask-search"
             placeholder="Visual Studio Code"
-            value={search}
-            onChange={event => {
-              setSearch(event.currentTarget.value);
-              const matches = matchSorter(casks, event.currentTarget.value, {
-                keys: ['token', 'name'],
-              });
-              setResults(matches);
-            }}
+            onChange={event => setSearch(event.currentTarget.value)}
           />
         </label>
       </form>
