@@ -68,7 +68,7 @@ const Index: React.VFC = () => {
               return (
                 <li key={cask.token}>
                   <div className="flex flex-col h-full p-2 space-y-2 bg-gray-200 rounded dark:bg-gray-900">
-                    <div className="flex-auto">
+                    <div className="flex-auto space-y-2">
                       <h2>{cask.name[0]}</h2>
                       {cask.desc && <p>{cask.desc}</p>}
                     </div>
