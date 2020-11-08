@@ -1,8 +1,8 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import Remix from "@remix-run/react/browser";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Remix from '@remix-run/react/browser';
 
-import { App } from "./app";
+import { App } from './app';
 
 ReactDOM.hydrate(
   // @types/react-dom says the 2nd argument to ReactDOM.hydrate() must be a

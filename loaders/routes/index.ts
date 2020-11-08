@@ -1,4 +1,4 @@
-import type { DataLoader } from "@remix-run/core";
+import type { DataLoader } from '@remix-run/core';
 
 class HTTPError extends Error {
   public response: Response;
@@ -12,10 +12,10 @@ class HTTPError extends Error {
         String(
           response.status === 0 || response.status
             ? response.status
-            : "Unknown response error"
+            : 'Unknown response error'
         )
     );
-    this.name = "HTTPError";
+    this.name = 'HTTPError';
     this.response = response;
     this.status = response.status;
   }
@@ -31,19 +31,19 @@ const checkResponse = (response: Response) => {
   return Promise.reject(error);
 };
 
-let loader: DataLoader = async () => {
+const loader: DataLoader = async () => {
   try {
-    const data = await fetch("https://formulae.brew.sh/api/cask.json")
+    const data = await fetch('https://formulae.brew.sh/api/cask.json')
       .then(checkResponse)
-      .then((res) => res.json());
+      .then(res => res.json());
 
     const body = JSON.stringify(data);
 
     return new Response(body, {
       status: 200,
       headers: {
-        "content-type": "application/json",
-        "cache-control": "public, max-age=3600",
+        'content-type': 'application/json',
+        'cache-control': 'public, max-age=3600',
       },
     });
   } catch (error) {

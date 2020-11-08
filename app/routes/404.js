@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 function meta() {
   return { title: "Ain't nothing here" };

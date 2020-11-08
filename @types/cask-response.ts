@@ -80,7 +80,7 @@ export interface Arch {
 }
 
 export interface MacOS {
-  ">="?: string[];
-  "=="?: string[];
-  "<="?: string[];
+  '>='?: string[];
+  '=='?: string[];
+  '<='?: string[];
 }
