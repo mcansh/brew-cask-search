@@ -10,14 +10,15 @@
   "scripts": {
     "build": "cross-env NODE_ENV=production run-p build:*",
     "build:remix": "remix build",
-    "build:loaders": "tsc -b",
+    "build:tsc": "tsc -b",
     "build:css": "postcss styles --base styles --dir app/ --env production",
     "dev": "run-p dev:*",
     "dev:remix": "remix run",
-    "dev:loaders": "tsc -b -w",
+    "dev:tsc": "tsc -b -w",
     "dev:server": "nodemon --ignore app server.js",
     "dev:css": "postcss styles --base styles --dir app/ -w",
-    "start": "cross-env NODE_ENV=production node server.js"
+    "start": "cross-env NODE_ENV=production node server.js",
+    "lint": "eslint --ext js,jsx,ts,tsx ./ --fix"
   },
   "dependencies": {
     "@remix-run/cli": "0.6.2",
