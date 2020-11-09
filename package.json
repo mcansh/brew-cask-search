@@ -8,10 +8,11 @@
   "author": "Logan McAnsh <logan@mcan.sh> (https://mcan.sh/)",
   "main": "remix.config.js",
   "scripts": {
+    "prebuild": "npm run buildcss",
     "build": "cross-env NODE_ENV=production run-p build:*",
     "build:remix": "remix build",
     "build:tsc": "tsc -b",
-    "build:css": "postcss styles --base styles --dir app/ --env production",
+    "buildcss": "postcss styles --base styles --dir app/ --env production",
     "dev": "run-p dev:*",
     "dev:remix": "remix run",
     "dev:tsc": "tsc -b -w",
